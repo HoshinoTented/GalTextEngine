@@ -1,9 +1,11 @@
 import org.hoshino9.engine.galtext.gal
+import org.hoshino9.engine.galtext.removeLast
 
 const val none = "旁白"
 const val self = "星野天诚"
 const val tented_unknown = "？？"
 const val tenied_unknown = "？？？"
+const val rorin_unknown = "？？？？"
 const val tt = "星野天忆"
 const val ti = "星野天怡"
 
@@ -49,8 +51,8 @@ fun main() {
         self say "没什么，只是想……"
 
         select {
-            +"问问你们的名字"
-            +"领养你们"
+            + "问问你们的名字"
+            + "领养你们"
         }
 
         switch(listOf("0")) {
@@ -96,8 +98,8 @@ fun main() {
         tenied_unknown say "为什么……要收留我们呢？"
 
         select {
-            +"没什么"
-            +"因为你们可爱"
+            + "没什么"
+            + "因为你们可爱"
         }
 
         switch(listOf("0")) {
@@ -140,7 +142,11 @@ fun main() {
         ti say "呜诶！……"
 
         select {
-            +"摸摸头"
+            + "摸摸头"
+        }
+
+        context {
+            it.ctx.removeLast()
         }
 
         none say "你摸了摸天忆的头"
@@ -207,5 +213,120 @@ fun main() {
         ti say "我会做饭……所以可以帮上一点忙……"
         none say "你笑了笑"
         self say "嗯"
+
+        self say "天怡有什么想吃的吗？"
+        ti say "诶……没有……"
+        self say "是吗……在孤儿院一般吃什么呢？"
+        ti say "唔……白粥和白饭……有的时候吃面……"
+        self say "那……做面吧"
+        ti say "诶……嗯……"
+
+        none say "餐桌上"
+        ti say "唔……吃饭的时候就不要吃糖啦……"
+        tt say "诶……唔……好吧……"
+        none say "天忆恋恋不舍地把糖放下"
+        self say "吃完饭，待会跟我讲讲孤儿院里的故事哦"
+        ti say "嗯"
+
+        none say "卧室"
+        none say "天忆似乎已经睡着了"
+        ti say "天忆很胆小，很怕生……所以在孤儿院里只跟我说话来着呢……"
+        ti say "吃饭也是……睡觉也是……无论什么事情都想和我在一起"
+        self say "……"
+        ti say "就这样照顾了很长一段时间……"
+        self say "嗯……一开始你们是怎么被收留在孤儿院里的？"
+        ti say "啊……从记事起我们就已经在孤儿院里了"
+        self say "是吗……那孤儿院里有发生什么有趣的事情吗？"
+        ti say "有趣的事情……"
+        ti say "……"
+        self say "啊……"
+        ti say "没有……很多朋友都被领养走了……只有我和天忆一直在孤儿院里……"
+        self say "多久了？"
+        ti say "一年……一年半吧……"
+        self say "是吗"
+        ti say "所以……所以姐姐能领养我们……我们真的很开心……"
+        self say "我知道的"
+
+        select {
+            + "抱住天怡"
+            + "摸摸天怡的头"
+        }
+
+        switch(listOf("0")) {
+            none say "你抱住了天怡"
+            ti say "诶！……"
+            self say "不过不用担心了，接下来，你们会有全新的生活哦……"
+            ti say "嗯……不过……也有点害怕未知的未来呢……"
+            self say "不用怕哦……"
+            ti say "……嗯！"
+        }
+
+        switch(listOf("1")) {
+            none say "你摸了摸天怡的头"
+            ti say "……"
+        }
+
+        context {
+            it.ctx.removeLast()
+        }
+
+        self say "啊，差点忘记了，还要给你做魔法道具呢"
+        ti say "诶……魔法道具……"
+
+        none say "你递给天怡一个魔法戒指"
+        ti say "啊……这个是……"
+        self say "可以心灵沟通的魔法道具哦"
+        ti say "谢谢姐姐……"
+        self say "唔……我不是说过我不喜欢听到谢谢吗……"
+        ti say "啊……那……我收下了……"
+        self say "嗯"
+        ti say "唔……可以给天忆也做一个吗？"
+        self say "好，等等哦"
+        ti say "嗯！……"
+
+        none say "卧室"
+        none say "天忆在床上睡着，十分安静"
+        none say "你把戒指戴在天忆左手的无名指上"
+        none say "接着抓住天怡的右手"
+        ti say "诶……"
+        self say "这样，很不错吧？"
+        ti say "……嗯……"
+
+        none say "书房"
+        self say "伸出手"
+        none say "天怡伸出手"
+        none say "你握住天怡的小手"
+        self say "……"
+        ti say "……？"
+        self say "天怡知道自己是什么魔法使吗？"
+        ti say "唔……老师跟我说过……好像是……星曜？"
+        self say "嗯……那这本书你看一下吧"
+        none say "你从书架上拿下一本书"
+        ti say "这是……"
+        self say "星曜魔法使的必备书籍哦"
+        ti say "唔……嗯……"
+
+        self say "天忆还没醒啊……"
+        ti say "天忆是那种一睡就睡很久的类型啦，而且睡的也很深……"
+        self say "是吗"
+
+        none say "夜晚"
+        none say "三人坐在屋顶上望着璀璨的星空"
+        self say "今天是值得纪念的日子呢"
+        ti say "啊……嗯！"
+        tt say "呜……姐姐……天忆好困……"
+        ti say "那就在我怀里躺一会儿吧"
+        tt say "呜嗯……"
+        self say "睡太多可是不太好的呢"
+        none say "天忆没有说话，好像已经睡着了"
+        self say "……"
+
+        none say {
+            + "无论怎样，这都是一个好的开始"
+            + "天诚心里如此想着"
+            + "晚安，这个世界"
+            + "就这样画下今天的句点吧"
+            + "2003 年 5 月 4 日"
+        }
     }.launch()
 }

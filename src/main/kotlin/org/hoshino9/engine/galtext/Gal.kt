@@ -67,8 +67,22 @@ data class GetContext(val block: (GalContext) -> Unit) : GalElement {
 }
 
 data class GalDSL(val elements: MutableList<GalElement>) {
+    data class SayList(val list: MutableList<String>) {
+        operator fun String.unaryPlus() {
+            list.add(this)
+        }
+    }
+
     infix fun String.say(text: String) {
         elements.add(GalDialog(this, text))
+    }
+
+    infix fun String.say(block: SayList.() -> Unit) {
+        val sl = SayList(arrayListOf())
+
+        sl.block()
+
+        elements.addAll(sl.list.map { GalDialog(this, it) })
     }
 
     inline fun switch(cond: List<Switch>, block: GalDSL.() -> Unit) {
