@@ -34,13 +34,19 @@ data class GalSwitch(val switch: MutableList<Switch>) : GalElement {
     }
 
     override fun eval(ctx: GalContext) {
-        println("Please select:")
+        var input: String?
 
-        switch.forEachIndexed { index, switch ->
-            println("$index. $switch")
-        }
+        do {
+            println("Please select:")
 
-        ctx.ctx.add(readLine().toString())
+            switch.forEachIndexed { index, switch ->
+                println("$index. $switch")
+            }
+
+            input = readLine().toString().trim()
+        } while (input?.isBlank() != false)
+
+        ctx.ctx.add(input.toString())
     }
 }
 
@@ -54,12 +60,18 @@ data class GalTextSwitch(val cond: List<Switch>, val texts: Iterator<GalElement>
     }
 }
 
+data class GetContext(val block: (GalContext) -> Unit) : GalElement {
+    override fun eval(ctx: GalContext) {
+        block(ctx)
+    }
+}
+
 data class GalDSL(val elements: MutableList<GalElement>) {
     infix fun String.say(text: String) {
         elements.add(GalDialog(this, text))
     }
 
-    fun switch(cond: List<Switch>, block: GalDSL.() -> Unit) {
+    inline fun switch(cond: List<Switch>, block: GalDSL.() -> Unit) {
         val dsl = GalDSL(arrayListOf())
 
         dsl.block()
@@ -69,12 +81,16 @@ data class GalDSL(val elements: MutableList<GalElement>) {
         elements.add(switch)
     }
 
-    fun select(block: GalSwitch.() -> Unit) {
+    inline fun select(block: GalSwitch.() -> Unit) {
         val switch = GalSwitch(arrayListOf())
 
         switch.block()
 
         elements.add(switch)
+    }
+
+    fun context(block: (GalContext) -> Unit) {
+        elements.add(GetContext(block))
     }
 }
 
