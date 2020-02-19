@@ -1,18 +1,10 @@
 import org.hoshino9.engine.galtext.gal
 import org.hoshino9.engine.galtext.removeLast
 
-const val none = "旁白"
-const val self = "星野天诚"
-const val tented_unknown = "？？"
-const val tenied_unknown = "？？？"
-const val rorin_unknown = "？？？？"
-const val tt = "星野天忆"
-const val ti = "星野天怡"
-
 fun main() {
     gal {
         self say "啊啊，又重来了吗。"
-        none say "你站在一片虚无中。"
+        none say "天诚站在一片虚无中。"
         none say "望着黑色的天空和深渊。"
         self say "到底是为什么呢，又做错了哪里呢……"
         self say "……"
@@ -24,14 +16,14 @@ fun main() {
         none say "一个女孩跑了过来"
         self say "……？"
         "小女孩" say "姐姐"
-        none say "你蹲下身子"
+        none say "天诚蹲下身子"
         self say "真可爱啊……"
         "小女孩" say "姐姐是来陪我们玩的吗？"
-        none say "你笑了笑，摸了摸小女孩的头"
+        none say "天诚笑了笑，摸了摸小女孩的头"
         self say "不是哦……"
         "小女孩" say "是吗……"
         none say "小女孩沮丧地走掉了"
-        none say "你望了望四周，在角落发现两个孤单又熟悉的身影"
+        none say "天诚望了望四周，在角落发现两个孤单又熟悉的身影"
 
         tented_unknown say "呜呜……"
         tenied_unknown say "好啦……别哭啦……给，你最喜欢的糖"
@@ -44,9 +36,9 @@ fun main() {
         none say "姐姐笑了笑"
         tenied_unknown say "开心起来了吗？"
         tented_unknown say "嗯！"
-        none say "你走到两个女孩旁边，姐姐最先注意到了你"
+        none say "天诚走到两个女孩旁边，姐姐最先注意到了她"
         tenied_unknown say "……？"
-        none say "你只是笑了笑"
+        none say "天诚只是笑了笑"
         tenied_unknown say "那个……请问……有什么事吗？"
         self say "没什么，只是想……"
 
@@ -90,7 +82,7 @@ fun main() {
         self say "先坐会儿吧，我去倒茶"
         tenied_unknown say "诶……"
 
-        none say "你把茶递过去"
+        none say "天诚把茶递过去"
         tenied_unknown say "谢……谢谢！……"
         self say "……没什么需要谢谢的啦"
         tenied_unknown say "那个……"
@@ -132,13 +124,13 @@ fun main() {
 
         ti say "好温暖……从来都没有在这么温暖的澡池里泡过澡……"
         self say "喜欢就好"
-        none say "你笑了笑"
+        none say "天诚笑了笑"
         self say "以后，你们就是我的妹妹了哦"
         ti say "嗯……"
         self say "嗯……天忆是不是有点怕生呀？"
         ti say "啊……是的……在孤儿院里只有我陪她……"
         self say "是吗……"
-        none say "你走到天忆身边"
+        none say "天诚走到天忆身边"
         ti say "呜诶！……"
 
         select {
@@ -149,7 +141,7 @@ fun main() {
             it.ctx.removeLast()
         }
 
-        none say "你摸了摸天忆的头"
+        none say "天诚摸了摸天忆的头"
         tt say "呜……"
         tt say "姐……姐姐……天诚姐姐……"
         self say "嗯，我在哦"
@@ -160,7 +152,7 @@ fun main() {
         tt say "呜……"
         self say "好啦，好好放松一下吧"
 
-        none say "你抬头望着天花板"
+        none say "天诚抬头望着天花板"
         self say "这次……又能有多久呢……"
         ti say "唔？"
         self say "啊……没什么，我先去拿点东西"
@@ -174,7 +166,7 @@ fun main() {
         none say "卧室，镜子前"
         self say "很合适呢"
         ti say "嗯……刚刚好……"
-        none say "你笑了笑"
+        none say "天诚笑了笑"
         self say "有什么想要买的吗？待会一起出去逛一逛商场……"
         ti say "诶……没有……"
         self say "是吗……"
@@ -206,12 +198,12 @@ fun main() {
         none say "天忆手里捧着一小堆糖果"
         tt say "嗯！"
         self say "嗯……那我也买一些糖果吧"
-        none say "你抓起了一大把糖果，放进了袋子里"
+        none say "天诚抓起了一大把糖果，放进了袋子里"
         self say "好啦，还要再买点……食材来着……"
         ti say "啊……那个姐姐……"
         self say "嗯？"
         ti say "我会做饭……所以可以帮上一点忙……"
-        none say "你笑了笑"
+        none say "天诚笑了笑"
         self say "嗯"
 
         self say "天怡有什么想吃的吗？"
@@ -253,7 +245,7 @@ fun main() {
         }
 
         switch(listOf("0")) {
-            none say "你抱住了天怡"
+            none say "天诚抱住了天怡"
             ti say "诶！……"
             self say "不过不用担心了，接下来，你们会有全新的生活哦……"
             ti say "嗯……不过……也有点害怕未知的未来呢……"
@@ -262,7 +254,7 @@ fun main() {
         }
 
         switch(listOf("1")) {
-            none say "你摸了摸天怡的头"
+            none say "天诚摸了摸天怡的头"
             ti say "……"
         }
 
@@ -273,7 +265,7 @@ fun main() {
         self say "啊，差点忘记了，还要给你做魔法道具呢"
         ti say "诶……魔法道具……"
 
-        none say "你递给天怡一个魔法戒指"
+        none say "天诚递给天怡一个魔法戒指"
         ti say "啊……这个是……"
         self say "可以心灵沟通的魔法道具哦"
         ti say "谢谢姐姐……"
@@ -286,7 +278,7 @@ fun main() {
 
         none say "卧室"
         none say "天忆在床上睡着，十分安静"
-        none say "你把戒指戴在天忆左手的无名指上"
+        none say "天诚把戒指戴在天忆左手的无名指上"
         none say "接着抓住天怡的右手"
         ti say "诶……"
         self say "这样，很不错吧？"
@@ -295,13 +287,13 @@ fun main() {
         none say "书房"
         self say "伸出手"
         none say "天怡伸出手"
-        none say "你握住天怡的小手"
+        none say "天诚握住天怡的小手"
         self say "……"
         ti say "……？"
         self say "天怡知道自己是什么魔法使吗？"
         ti say "唔……老师跟我说过……好像是……星曜？"
         self say "嗯……那这本书你看一下吧"
-        none say "你从书架上拿下一本书"
+        none say "天诚从书架上拿下一本书"
         ti say "这是……"
         self say "星曜魔法使的必备书籍哦"
         ti say "唔……嗯……"

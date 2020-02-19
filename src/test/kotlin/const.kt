@@ -1,0 +1,9 @@
+const val none = "旁白"
+const val self = "星野天诚"
+const val tented_unknown = "？？"
+const val tenied_unknown = "？？？"
+const val rorin_unknown = "？？？？"
+const val tt = "星野天忆"
+const val ti = "星野天怡"
+const val boss = "店长"
+const val H: Boolean = false
