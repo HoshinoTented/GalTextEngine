@@ -7,9 +7,9 @@ interface GalElement {
     override fun toString(): String
 }
 
-data class GalLauncher(val elements: Iterator<GalElement>) {
+data class GalLauncher(val elements: Iterable<GalElement>) {
     fun launch(): GalContext {
-        val ctx = GalContext(emptyList<Switch>().toMutableList())
+        val ctx = GalContext(mutableListOf())
 
         elements.forEach {
             it.eval(ctx)
@@ -34,7 +34,7 @@ data class GalSwitch(val switch: MutableList<Switch>) : GalElement {
     }
 
     override fun eval(ctx: GalContext) {
-        var input: String?
+        var input: String
 
         do {
             println("Please select:")
@@ -43,14 +43,14 @@ data class GalSwitch(val switch: MutableList<Switch>) : GalElement {
                 println("$index. $switch")
             }
 
-            input = readLine().toString().trim()
-        } while (input?.isBlank() != false)
+            input = readLine().orEmpty().trim()
+        } while (input.isBlank())
 
-        ctx.ctx.add(input.toString())
+        ctx.ctx.add(input)
     }
 }
 
-data class GalTextSwitch(val cond: List<Switch>, val texts: Iterator<GalElement>) : GalElement {
+data class GalTextSwitch(val cond: List<Switch>, val texts: Iterable<GalElement>) : GalElement {
     override fun eval(ctx: GalContext) {
         if (ctx.ctx.take(cond.size) == cond) {
             texts.forEach {
@@ -90,7 +90,7 @@ data class GalDSL(val elements: MutableList<GalElement>) {
 
         dsl.block()
 
-        val switch = GalTextSwitch(cond, dsl.elements.iterator())
+        val switch = GalTextSwitch(cond, dsl.elements)
 
         elements.add(switch)
     }
@@ -113,5 +113,5 @@ inline fun gal(block: GalDSL.() -> Unit): GalLauncher {
 
     dsl.block()
 
-    return GalLauncher(dsl.elements.iterator())
+    return GalLauncher(dsl.elements)
 }

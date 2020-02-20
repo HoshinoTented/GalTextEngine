@@ -42,7 +42,7 @@ fun main() {
         self say "……我去工作了……"
         boss say "嗯"
 
-        if (H) {
+        if (r18) {
             // TODO: R18
 
             boss say "给，休息一下吧"
