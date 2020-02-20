@@ -6,4 +6,4 @@ const val rorin_unknown = "？？？？"
 const val tt = "星野天忆"
 const val ti = "星野天怡"
 const val boss = "店长"
-const val r18: Boolean = false
+const val r18: Boolean = true

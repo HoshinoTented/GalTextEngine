@@ -50,12 +50,49 @@ data class GalSwitch(val switch: MutableList<Switch>) : GalElement {
     }
 }
 
-data class GalTextSwitch(val cond: List<Switch>, val texts: Iterable<GalElement>) : GalElement {
+interface AbstractGalTextSwitch : GalElement {
+    val cond: List<Switch>
+    val texts: Iterable<GalElement>
+}
+
+data class GalTextSwitch(override val cond: List<Switch>, override val texts: Iterable<GalElement>) :
+    AbstractGalTextSwitch {
     override fun eval(ctx: GalContext) {
         if (ctx.ctx.take(cond.size) == cond) {
             texts.forEach {
                 it.eval(ctx)
             }
+        }
+    }
+}
+
+data class GalTextSwitchLast(override val cond: List<Switch>, override val texts: Iterable<GalElement>) :
+    AbstractGalTextSwitch {
+    override fun eval(ctx: GalContext) {
+        if (ctx.ctx.takeLast(cond.size) == cond) {
+            texts.forEach {
+                it.eval(ctx)
+            }
+        }
+    }
+}
+
+data class GalSwitchOnce(val switch: List<Pair<String, Iterable<GalElement>>>) : GalElement {
+    override fun eval(ctx: GalContext) {
+        var input: String
+
+        do {
+            println("Please select:")
+
+            switch.forEachIndexed { index, (name, _) ->
+                println("$index. $name")
+            }
+
+            input = readLine().orEmpty().trim()
+        } while (input.isBlank())
+
+        switch[input.toInt()].second.forEach {
+            it.eval(ctx)
         }
     }
 }
@@ -85,15 +122,26 @@ data class GalDSL(val elements: MutableList<GalElement>) {
         elements.addAll(sl.list.map { GalDialog(this, it) })
     }
 
-    inline fun switch(cond: List<Switch>, block: GalDSL.() -> Unit) {
+    inline fun switchInternal(
+        cond: List<Switch>,
+        block: GalDSL.() -> Unit,
+        constrsuctor: (List<Switch>, Iterable<GalElement>) -> GalElement
+    ) {
         val dsl = GalDSL(arrayListOf())
 
         dsl.block()
 
-        val switch = GalTextSwitch(cond, dsl.elements)
+        val switch = constrsuctor(cond, dsl.elements)
 
         elements.add(switch)
     }
+
+    inline fun switch(cond: List<Switch>, block: GalDSL.() -> Unit) = switchInternal(cond, block, ::GalTextSwitch)
+    inline fun switchLast(cond: List<Switch>, block: GalDSL.() -> Unit) =
+        switchInternal(cond, block, ::GalTextSwitchLast)
+
+    inline fun switch(switch: Switch, block: GalDSL.() -> Unit) = switch(listOf(switch), block)
+    inline fun switchLast(switch: Switch, block: GalDSL.() -> Unit) = switchLast(listOf(switch), block)
 
     inline fun select(block: GalSwitch.() -> Unit) {
         val switch = GalSwitch(arrayListOf())
