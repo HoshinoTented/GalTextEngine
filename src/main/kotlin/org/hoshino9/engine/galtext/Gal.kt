@@ -8,14 +8,12 @@ interface GalElement {
 }
 
 data class GalLauncher(val elements: Iterable<GalElement>) {
-    fun launch(): GalContext {
-        val ctx = GalContext(mutableListOf())
-
+    fun launch(context: GalContext = GalContext(arrayListOf())): GalContext {
         elements.forEach {
-            it.eval(ctx)
+            it.eval(context)
         }
 
-        return ctx
+        return context
     }
 }
 

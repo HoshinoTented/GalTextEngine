@@ -197,6 +197,8 @@ fun main() {
         none say "过大的魔力输出把灶台引爆了"
         none say "天诚也赶紧抱住天怡，背对着灶台"
 
+        // 以前天怡做饭的方式可能并没有使用到魔法（传统），而天诚则让天怡使用了较为现代的料理方式，天怡因为控制不好魔力的输出导致了本次事故。
+
         none say "事后"
 
         self say "啊……果然还是得加防护措施才行……"
@@ -247,7 +249,99 @@ fun main() {
             }
 
             switchLast("0") {
-                // TODO R18
+                self say "如果这样能让天怡好受一些的话……"
+                none say "天诚慢慢向天怡移动"
+                none say "天怡紧闭着双瞳"
+
+                none say "天诚亲亲咬住天怡的耳朵"
+                ti say "呜！……啊……"
+                none say "一只手抱住天怡，另一只手玩弄着天怡胸前小巧的小凸起"
+                ti say "姐……姐姐……这……这个是……"
+                self say "是 惩 罚 哦"
+                none say "天诚小声的在天怡耳边说道"
+                none say "从口中吐出的热气又让天怡变得无比奇妙"
+                ti say "呜……啊……"
+                self say "怎么样？"
+                ti say "嗯……什么……什么怎么样……"
+                self say "现在天怡是不是，变得很奇怪呢？"
+                ti say "呜……不知道……完全不知道……呜啊！……"
+                self say "差不多，该进入高潮了哦"
+                ti say "呜诶……？"
+                none say "天诚把抱着天怡的手放到了天怡的两腿中间"
+                ti say "呜！……"
+                self say "怎么样？"
+                ti say "呜呜……不知道了……"
+                self say "天怡要听好哦……这个叫做……做爱哦……"
+                ti say "呜……"
+                none say "是天怡完全陌生的单词，但并天怡已经完全领会到这个词语的意思了"
+                ti say "呜嗯……"
+                none say "天诚的手指在天怡的夹缝边缘摩擦着"
+                ti say "呜！……姐姐……要不行了……"
+                self say "嗯……？要去了吗？"
+                ti say "啊……"
+                none say "从天怡的夹缝中喷出了许多液体"
+                self say "天怡弄出来了好多呀……"
+                self say "还想要吗？"
+                ti say "诶……我……"
+                none say "天诚会心一笑"
+                self say "真是……坏孩子呀……"
+                ti say "诶……"
+                ti say "啊呜！……"
+                none say "天诚将手深入天怡夹缝中"
+                none say "慢慢搅动着"
+                ti say "姐姐……停……呜……"
+                ti say "停一下……"
+                self say "嗯……？我听不到哦……"
+                ti say "呜……"
+                ti say "姐姐……停一下！……"
+                none say "天怡抬高了嗓门"
+                self say "嗯……好像还少了什么。啊！对了……要有礼貌哦~"
+                ti say "呜诶……有……有礼貌……"
+                ti say "姐姐……请……请停下吧……"
+                self say "嗯……那……"
+
+                select {
+                    + "停下"
+                    + "继续"
+                }
+
+                switchLast("0") {
+                    none say "天诚停下了手中的动作"
+                    ti say "呜……姐姐……"
+                }
+
+                switchLast("1") {
+                    // TODO R18
+                }
+
+                context {
+                    it.ctx.removeLast()
+                }
+
+
+                none say "天诚把手放在天怡的脸颊上"
+                none say "接着将头靠近"
+                none say "慢慢亲了上去"
+                ti say "呜！……"
+
+                none say {
+                    + "月光从窗外撒入"
+                    + "洁白的月光照射的天怡的白色头发上"
+                    + "显现的格外美丽"
+                }
+
+                ti say "呜……"
+                self say "天怡以前和别人亲过吗？"
+                ti say "呜……没……"
+                self say "那天怡的初吻，我收下了哦……"
+                ti say "诶……初吻……"
+
+                none say {
+                    + "这一段刚刚开始的感情"
+                    + "犹如初生的百合花一般"
+                    + "美丽，纯洁，可爱"
+                    + "而又脆弱"
+                }
             }
         }
 
@@ -271,5 +365,21 @@ fun main() {
                 none say "天诚帮天怡重新穿好了衣服"
             }
         }
+
+        none say "厨房"
+        self say "天忆，辛苦你了"
+        tt say "啊……嘿嘿……不辛苦的啦……"
+        none say "天忆坐在地上，正在擦拭着地板上的脏东西"
+        tt say "唔……还差一点……姐姐等等哦……"
+        self say "嗯"
+
+        tt say "嗯！好吃！"
+        ti say "真……真的吗！……"
+        self say "终于成功了呀"
+        ti say "嗯……不过没有姐姐的教导的话……我是做不出来的呢……"
+        tt say "多谢款待"
+        ti say "啊……吃完了！？"
+        tt say "因为太好吃了啦……"
+        ti say "是吗……"
     }.launch()
 }
