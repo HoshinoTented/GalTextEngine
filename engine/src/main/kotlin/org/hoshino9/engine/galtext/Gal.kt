@@ -112,6 +112,10 @@ data class GalDSL(val elements: MutableList<GalElement>) {
         elements.add(GalDialog(this, text))
     }
 
+    infix fun List<String>.say(text: String) {
+        elements.add(GalDialog(joinToString(separator = " & "), text))
+    }
+
     infix fun String.say(block: SayList.() -> Unit) {
         val sl = SayList(arrayListOf())
 

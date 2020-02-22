@@ -127,5 +127,15 @@ object Section1 : GalSection {
             self say "而且呀，不觉得看着天忆开心的样子……很幸福吗？"
             ti say "诶……？"
             ti say "唔……不是很懂……"
+
+            none say "正午"
+            listOf(tt, ti) say "呼哇~好舒服~"
+            none say "两人正躺在毯子上晒着太阳"
+            self say "偶尔出来玩玩也不错吧？"
+            ti say "嗯！"
+            tt say "呼~"
+            self say "好好休息一下吧，天忆应该也累了"
+            tt say "唔嗯……"
+            self say ""
         }
 }
