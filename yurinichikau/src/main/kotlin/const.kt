@@ -1,3 +1,4 @@
+import org.hoshino9.engine.galtext.Context
 import org.hoshino9.engine.galtext.GalLauncher
 
 const val none = "旁白"
@@ -11,7 +12,7 @@ const val boss = "店长"
 const val r18: Boolean = true
 
 interface GalSection {
-    val launcher: GalLauncher
+    val launcher: GalLauncher<Context>
     val name: String
 }
 

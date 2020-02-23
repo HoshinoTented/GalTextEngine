@@ -3,7 +3,7 @@ import org.hoshino9.engine.galtext.*
 object Section1 : GalSection {
     override val name: String = "自然之美"
 
-    override val launcher: GalLauncher
+    override val launcher: GalLauncher<Context>
         get() = gal {
             none say "早上"
             ti say "诶……旅游？"
@@ -171,7 +171,7 @@ object Section1 : GalSection {
             none say "仿佛这样能给予天忆安全感"
             tt say "梦到……姐姐不要天忆了……"
 
-            switchLast("1") {
+            switch("tenied_h") {
                 tt say "梦到姐姐……只要天怡姐姐……把天忆丢掉了……"
             }
 
@@ -180,7 +180,7 @@ object Section1 : GalSection {
             none say "天诚紧紧抱着天忆"
             none say "天忆的哭声也渐渐消失了"
 
-            switchLast("1") {
+            switch("tenied_h") {
                 tt say "姐……姐姐……"
                 self say "嗯？"
                 tt say "上次……姐姐和天怡姐姐在卧室……做那种事情……"
@@ -245,5 +245,37 @@ object Section1 : GalSection {
             none say "天忆躺在天诚的大腿上"
             none say "星星结界也缓缓消散"
             self say "真是可爱的孩子呢……"
+
+            ti say "姐姐……？"
+            self say "啊……天怡？"
+            ti say "姐姐怎么在这种地方睡着了，会感冒的"
+            self say "唔……"
+            none say "天诚迷迷糊糊地坐了起来"
+            self say "因为天忆睡着了，又不想吵醒她，所以就在这里睡着啦……"
+            ti say "唔……"
+            self say "天忆？"
+            none say "天诚晃了晃天忆"
+            none say "但天忆仍然沉睡在美梦中"
+            self say "啊……天怡把天忆抱到帐篷里去吧，我来准备早餐"
+            ti say "嗯"
+
+            ti say "姐姐这是在做什么呀？"
+            self say "豆浆，喝过吗？"
+            ti say "有喝过……"
+            ti say "现在是在磨豆浆吗？"
+            self say "嗯，隙间里没有现成的，所以就现磨啦"
+            ti say "唔……我也想试试看"
+            self say "呐，这个给你"
+            ti say "魔法卡片？"
+            self say "嗯"
+            none say "天怡把魔力灌入卡片"
+            none say "随后卡片化作一个小球"
+            self say "然后往里面放入豆子就行了"
+            ti say "嗯……"
+            none say "天怡往小球内丢入豆子"
+            none say "接着小球开始旋转"
+            ti say "噢哦哦！"
+            self say "要等一会儿哦，磨完豆子之后还得分离豆浆和豆渣，要用到另一张魔法卡片"
+            ti say "嗯！"
         }
 }

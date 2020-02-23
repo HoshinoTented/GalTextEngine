@@ -1,11 +1,9 @@
-import org.hoshino9.engine.galtext.GalLauncher
-import org.hoshino9.engine.galtext.gal
-import org.hoshino9.engine.galtext.removeLast
+import org.hoshino9.engine.galtext.*
 
 object Opening : GalSection {
     override val name: String = "序章"
 
-    override val launcher: GalLauncher
+    override val launcher: GalLauncher<Context>
         get() = gal {
             self say "啊啊，又重来了吗。"
             none say "天诚站在一片虚无中。"
@@ -47,11 +45,11 @@ object Opening : GalSection {
             self say "没什么，只是想……"
 
             select {
-                + "问问你们的名字"
-                + "领养你们"
+                "0" with "问问你们的名字"
+                "1" with "领养你们"
             }
 
-            switch(listOf("0")) {
+            switchAndRemove("0") {
                 tenied_unknown say "名字……"
                 tenied_unknown say "我叫 0901，这边是我的妹妹，0504"
                 self say "……不是那种名字啦"
@@ -62,12 +60,8 @@ object Opening : GalSection {
                 tenied_unknown say "诶……？待会……？"
             }
 
-            switch(listOf("1")) {
+            switchAndRemove("1") {
                 tenied_unknown say "领……领养？"
-            }
-
-            context {
-                it.ctx.removeAt(it.ctx.lastIndex)
             }
 
 
@@ -94,22 +88,18 @@ object Opening : GalSection {
             tenied_unknown say "为什么……要收留我们呢？"
 
             select {
-                + "没什么"
-                + "因为你们可爱"
+                "0" with "没什么"
+                "1" with "因为你们可爱"
             }
 
-            switch(listOf("0")) {
+            switchAndRemove("0") {
                 tenied_unknown say "是吗……不过我还是很感谢你的……"
             }
 
-            switch(listOf("1")) {
+            switchAndRemove("1") {
                 tenied_unknown say "可……可爱……是吗……"
                 none say "女孩笑了笑"
                 tenied_unknown say "总之……很感谢你收留我们！"
-            }
-
-            context {
-                it.ctx.removeAt(it.ctx.lastIndex)
             }
 
             self say "对了，你们还没有名字呢"
@@ -136,15 +126,6 @@ object Opening : GalSection {
             self say "是吗……"
             none say "天诚走到天忆身边"
             ti say "呜诶！……"
-
-            select {
-                + "摸摸头"
-            }
-
-            context {
-                it.ctx.removeLast()
-            }
-
             none say "天诚摸了摸天忆的头"
             tt say "呜……"
             tt say "姐……姐姐……天诚姐姐……"
@@ -244,11 +225,11 @@ object Opening : GalSection {
             self say "我知道的"
 
             select {
-                + "抱住天怡"
-                + "摸摸天怡的头"
+                "0" with "抱住天怡"
+                "1" with "摸摸天怡的头"
             }
 
-            switch(listOf("0")) {
+            switchAndRemove("0") {
                 none say "天诚抱住了天怡"
                 ti say "诶！……"
                 self say "不过不用担心了，接下来，你们会有全新的生活哦……"
@@ -257,13 +238,9 @@ object Opening : GalSection {
                 ti say "……嗯！"
             }
 
-            switch(listOf("1")) {
+            switchAndRemove("1") {
                 none say "天诚摸了摸天怡的头"
                 ti say "……"
-            }
-
-            context {
-                it.ctx.removeLast()
             }
 
             self say "啊，差点忘记了，还要给你做魔法道具呢"

@@ -6,7 +6,7 @@ import org.hoshino9.engine.galtext.*
 object Section0 : GalSection {
     override val name: String = "初梦"
 
-    override val launcher: GalLauncher
+    override val launcher: GalLauncher<Context>
         get() = gal {
             self say "再见啦，天忆要乖一点哦"
             tt say "嗯！……天忆……不会让姐姐们担心的……"
@@ -142,11 +142,11 @@ object Section0 : GalSection {
                 none say "店长的房间"
 
                 select {
-                    + "不做"
-                    + "做"
+                    "0" with "不做"
+                    "1" with "做"
                 }
 
-                switch("0") {
+                switchAndRemove("0") {
                     self say "今天……可以不做吗……"
                     boss say "嗯……"
                     self say "……"
@@ -157,12 +157,8 @@ object Section0 : GalSection {
                     boss say "嗯"
                 }
 
-                switch("1") {
+                switchAndRemove("1") {
                     // TODO R18
-                }
-
-                context {
-                    it.ctx.removeLast()
                 }
             }
 
@@ -247,11 +243,11 @@ object Section0 : GalSection {
                 ti say "姐姐……请惩罚我把……"
 
                 select {
-                    + "惩罚"
-                    + "不惩罚"
+                    "tenied_h" with "惩罚"
+                    "1" with "不惩罚"
                 }
 
-                switchLast("0") {
+                switch("tenied_h") {
                     self say "如果这样能让天怡好受一些的话……"
                     none say "天诚慢慢向天怡移动"
                     none say "天怡紧闭着双瞳"
@@ -304,23 +300,18 @@ object Section0 : GalSection {
                     self say "嗯……那……"
 
                     select {
-                        + "停下"
-                        + "继续"
+                        "0" with "停下"
+                        "1" with "继续"
                     }
 
-                    switchLast("0") {
+                    switchAndRemove("0") {
                         none say "天诚停下了手中的动作"
                         ti say "呜……姐姐……"
                     }
 
-                    switchLast("1") {
+                    switch("1") {
                         // TODO R18
                     }
-
-                    context {
-                        it.ctx.removeLast()
-                    }
-
 
                     none say "天诚把手放在天怡的脸颊上"
                     none say "接着将头靠近"
@@ -364,7 +355,7 @@ object Section0 : GalSection {
             self say "嗯"
 
             if (r18) {
-                switchLast("1") {
+                switchAndRemove("1") {
                     none say "天诚帮天怡重新穿好了衣服"
                 }
             }
