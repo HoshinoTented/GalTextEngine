@@ -8,8 +8,11 @@ const val tenied_unknown = "？？？"
 const val rorin_unknown = "？？？？"
 const val tt = "星野天忆"
 const val ti = "星野天怡"
+const val rr = "林落铃"
 const val boss = "店长"
 const val r18: Boolean = true
+
+const val tenied_h = "tenied_h"
 
 interface GalSection {
     val launcher: GalLauncher<Context>
