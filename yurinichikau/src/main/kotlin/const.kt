@@ -1,5 +1,7 @@
 import org.hoshino9.engine.galtext.Context
 import org.hoshino9.engine.galtext.GalLauncher
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 const val none = "旁白"
 const val self = "星野天诚"
@@ -12,7 +14,15 @@ const val rr = "林落铃"
 const val boss = "店长"
 const val r18: Boolean = true
 
-const val tenied_h = "tenied_h"
+object PropertyNameDelegate : ReadOnlyProperty<Any?, String> {
+    override fun getValue(thisRef: Any?, property: KProperty<*>): String {
+        return property.name
+    }
+}
+
+val tenied_h by PropertyNameDelegate
+val tented_h by PropertyNameDelegate
+val tented_h_refuse by PropertyNameDelegate
 
 interface GalSection {
     val launcher: GalLauncher<Context>

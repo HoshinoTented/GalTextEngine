@@ -8,6 +8,8 @@ fun main() {
     }
 
     val selected = readLine().orEmpty().toIntOrNull() ?: throw IllegalArgumentException("WDNMD")
-    sections.getOrNull(selected)?.launcher?.launch(GalContext(hashMapOf("tenied_h" to true)))
-        ?: throw IllegalArgumentException("WDNMD")
+
+    (selected until sections.size).forEach {
+        sections.getOrNull(it)?.launcher?.launch(GalContext(hashMapOf("tenied_h" to true)))
+    }
 }
