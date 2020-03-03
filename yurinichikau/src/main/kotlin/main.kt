@@ -1,5 +1,11 @@
 import org.hoshino9.engine.galtext.GalContext
 
+val defaultContext = GalContext(
+    hashMapOf(
+        tenied_h to true
+    )
+)
+
 fun main() {
     println("请选择章节：")
 
