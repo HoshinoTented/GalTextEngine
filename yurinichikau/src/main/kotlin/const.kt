@@ -23,6 +23,9 @@ object PropertyNameDelegate : ReadOnlyProperty<Any?, String> {
 val tenied_h by PropertyNameDelegate
 val tented_h by PropertyNameDelegate
 val tented_h_refuse by PropertyNameDelegate
+val tented_h_lie by PropertyNameDelegate
+val tented_h_no_lie by PropertyNameDelegate
+
 
 interface GalSection {
     val launcher: GalLauncher<Context>
