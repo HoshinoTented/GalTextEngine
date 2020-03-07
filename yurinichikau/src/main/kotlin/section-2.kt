@@ -75,5 +75,42 @@ object Section3 : GalSection {
                     // TODO
                 }
             }
+
+            none say {
+                + "又是一个新的早晨"
+                + "窗外的树上站着几只鸟儿，欢快地歌唱着"
+                + "天怡和天忆还躺在床上熟睡着"
+            }
+
+            none say "厨房"
+            self say "呼。。今天的早餐就吃点中式面吧"
+
+            none say "过了许久"
+            self say "还没醒吗……"
+
+            none say "卧室"
+            self say "起！"
+            self say "起！床！"
+            self say "起！床！啦！"
+            listOf(ti, tt) say "呜哇！！！！！！！！！！！！！！！！！"
+            self say "真是的，时候不早了噢"
+            tt say "呜……"
+            ti say "嗯……"
+            self say "早餐已经做好了，收拾好就准备下来吃早餐吧"
+            ti say "知道了"
+
+            tt say "嗯~好吃！"
+            self say "喜欢就好"
+
+            none say "早餐过后，天诚带着她们出门"
+            ti say "唔……姐姐，今天要去哪里呀？"
+            self say "带你们去看看学习的地方"
+            ti say "学习……学校？"
+            self say "嗯"
+            ti say "诶……真的……真的可以去上学吗？"
+            self say "那当然啦，虽然说我应该不会和你们分开，但是以防万一嘛"
+            ti say "唔……所以是去学防身的东西……？"
+            self say "也不全是啦，只是学魔法的内容而已，有些也可以拿来玩的哦"
+            ti say "嗯……"
         }
 }
