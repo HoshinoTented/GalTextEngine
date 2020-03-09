@@ -102,23 +102,24 @@ suspend inline fun GalDSL<Context>.select(block: GalSelectDSL.() -> Unit) {
     collector.emit(GalSelect(dsl.map))
 }
 
-suspend fun GalDSL<Context>.switch(key: String, block: suspend GalDSL<Context>.() -> Unit) {
+internal suspend fun GalDSL<Context>.switchInternal(
+    key: String,
+    block: suspend GalDSL<Context>.() -> Unit,
+    finally: (GalContext<Context>) -> Unit
+) {
     withContext {
         if (it.ctx[key] == true) {
             block()
+            finally(it)
         }
     }
 }
 
-suspend fun GalDSL<Context>.switchAndRemove(key: String, block: suspend GalDSL<Context>.() -> Unit) {
-    withContext {
-        if (it.ctx[key] == true) {
-            block()
-        }
+suspend fun GalDSL<Context>.switch(key: String, block: suspend GalDSL<Context>.() -> Unit) =
+    switchInternal(key, block) {}
 
-        it.ctx.remove(key)
-    }
-}
+suspend fun GalDSL<Context>.switchAndRemove(key: String, block: suspend GalDSL<Context>.() -> Unit) =
+    switchInternal(key, block) { it.ctx.remove(key) }
 
 suspend fun main() {
     gal<Context> {
