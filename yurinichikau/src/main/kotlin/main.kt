@@ -6,7 +6,7 @@ val defaultContext = GalContext(
     )
 )
 
-fun main() {
+suspend fun main() {
     println("请选择章节：")
 
     sections.forEachIndexed { i, section ->

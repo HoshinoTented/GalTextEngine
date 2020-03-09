@@ -1,18 +1,15 @@
 package org.hoshino9.engine.galtext
 
+import kotlinx.coroutines.flow.*
+
 interface GalElement<Ctx> {
-    fun eval(ctx: GalContext<Ctx>)
-    override fun toString(): String
+    suspend fun eval(ctx: GalContext<Ctx>)
 }
 
-data class GalLauncher<Ctx>(val elements: List<GalElement<Ctx>>) {
-    fun launch(context: GalContext<Ctx>): GalContext<Ctx> {
-        var i = 0
-
-        while (i < elements.size) {
-            elements[i].eval(context)
-
-            i += 1
+data class GalLauncher<Ctx>(val iter: Flow<GalElement<Ctx>>) {
+    suspend fun launch(context: GalContext<Ctx>): GalContext<Ctx> {
+        iter.collect {
+            it.eval(context)
         }
 
         return context
@@ -22,58 +19,59 @@ data class GalLauncher<Ctx>(val elements: List<GalElement<Ctx>>) {
 data class GalContext<out Ctx>(val ctx: Ctx)
 
 data class GalDialog<Ctx>(val talker: String, val text: String) : GalElement<Ctx> {
-    override fun eval(ctx: GalContext<Ctx>) {
+    override suspend fun eval(ctx: GalContext<Ctx>) {
         println("$talker：「$text」")
         readLine()
     }
 }
 
-data class GetContext<Ctx>(val block: (GalContext<Ctx>) -> Unit) : GalElement<Ctx> {
-    override fun eval(ctx: GalContext<Ctx>) {
+data class GetContext<Ctx>(val block: suspend (GalContext<Ctx>) -> Unit) : GalElement<Ctx> {
+    override suspend fun eval(ctx: GalContext<Ctx>) {
         block(ctx)
     }
 }
 
-data class GalDSL<Ctx>(val elements: MutableList<GalElement<Ctx>>) {
+data class GalDSL<Ctx>(val collector: FlowCollector<GalElement<Ctx>>) {
     data class SayList(val list: MutableList<String>) {
         operator fun String.unaryPlus() {
             list.add(this)
         }
     }
 
-    infix fun String.say(text: String) {
-        elements.add(GalDialog(this, text))
+    suspend infix fun String.say(text: String) {
+        collector.emit(GalDialog(this, text))
     }
 
-    infix fun List<String>.say(text: String) {
-        elements.add(GalDialog(joinToString(separator = " & "), text))
+    suspend infix fun List<String>.say(text: String) {
+        collector.emit(GalDialog(joinToString(separator = " & "), text))
     }
 
-    infix fun String.say(block: SayList.() -> Unit) {
+    suspend infix fun String.say(block: SayList.() -> Unit) {
         val sl = SayList(arrayListOf())
 
         sl.block()
 
-        elements.addAll(sl.list.map { GalDialog<Ctx>(this, it) })
+        collector.emitAll(sl.list.map { GalDialog<Ctx>(this, it) }.asFlow())
     }
 
-    fun withContext(block: (GalContext<Ctx>) -> Unit) {
-        elements.add(GetContext(block))
+    suspend fun withContext(block: suspend (GalContext<Ctx>) -> Unit) {
+        collector.emit(GetContext(block))
     }
 }
 
-inline fun <Ctx> gal(block: GalDSL<Ctx>.() -> Unit): GalLauncher<Ctx> {
-    val dsl = GalDSL<Ctx>(arrayListOf())
-
-    dsl.block()
-
-    return GalLauncher(dsl.elements)
+fun <Ctx> gal(block: suspend GalDSL<Ctx>.() -> Unit): GalLauncher<Ctx> {
+    return flow<GalElement<Ctx>> {
+        GalDSL(this).block()
+    }.let {
+        GalLauncher(it)
+    }
 }
 
 typealias Context = MutableMap<String, Boolean>
+typealias Switch = MutableMap<String, String>
 
-data class GalSelect(val switches: MutableMap<String, String>) : GalElement<Context> {
-    override fun eval(ctx: GalContext<Context>) {
+data class GalSelect(val switches: Switch) : GalElement<Context> {
+    override suspend fun eval(ctx: GalContext<Context>) {
         switches.forEach { (key, value) ->
             println("$key -> $value")
         }
@@ -90,47 +88,55 @@ data class GalSelect(val switches: MutableMap<String, String>) : GalElement<Cont
     }
 }
 
-data class GalSelectDSL(val map: MutableMap<String, String>) {
+class GalSelectDSL(val map: Switch) {
     infix fun String.with(name: String) {
         map[this] = name
     }
 }
 
-inline fun GalDSL<Context>.select(block: GalSelectDSL.() -> Unit) {
+suspend inline fun GalDSL<Context>.select(block: GalSelectDSL.() -> Unit) {
     val dsl = GalSelectDSL(HashMap())
 
     dsl.block()
 
-    elements.add(GalSelect(dsl.map))
+    collector.emit(GalSelect(dsl.map))
 }
 
-fun GalDSL<Context>.switch(key: String, block: GalDSL<Context>.() -> Unit) {
+suspend fun GalDSL<Context>.switch(key: String, block: suspend GalDSL<Context>.() -> Unit) {
     withContext {
-        if (it.ctx.getOrDefault(key, false)) {
-            val newContext = GalDSL<Context>(arrayListOf()).apply {
-                block()
-            }.elements.let { elements ->
-                GalLauncher(elements).launch(it)
-            }
-
-            it.ctx.clear()
-            it.ctx.putAll(newContext.ctx)
+        if (it.ctx[key] == true) {
+            block()
         }
     }
 }
 
-fun GalDSL<Context>.switchAndRemove(key: String, block: GalDSL<Context>.() -> Unit) {
+suspend fun GalDSL<Context>.switchAndRemove(key: String, block: suspend GalDSL<Context>.() -> Unit) {
     withContext {
-        if (it.ctx.getOrDefault(key, false)) {
-            val newContext = GalDSL<Context>(arrayListOf()).apply {
-                block()
-            }.elements.let { elements ->
-                GalLauncher(elements).launch(it)
-            }
-
-            it.ctx.clear()
-            it.ctx.putAll(newContext.ctx)
-            it.ctx.remove(key)
+        if (it.ctx[key] == true) {
+            block()
         }
+
+        it.ctx.remove(key)
     }
+}
+
+suspend fun main() {
+    gal<Context> {
+        "0" say "0"
+
+        select {
+            "1" with "1"
+            "2" with "2"
+        }
+
+        switch("1") {
+            "1" say "1"
+        }
+
+        switch("2") {
+            "2" say "2"
+        }
+
+        "3" say "3"
+    }.launch(GalContext(HashMap()))
 }
