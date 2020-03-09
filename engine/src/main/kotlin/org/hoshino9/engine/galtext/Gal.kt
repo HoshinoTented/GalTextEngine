@@ -120,24 +120,3 @@ suspend fun GalDSL<Context>.switch(key: String, block: suspend GalDSL<Context>.(
 
 suspend fun GalDSL<Context>.switchAndRemove(key: String, block: suspend GalDSL<Context>.() -> Unit) =
     switchInternal(key, block) { it.ctx.remove(key) }
-
-suspend fun main() {
-    gal<Context> {
-        "0" say "0"
-
-        select {
-            "1" with "1"
-            "2" with "2"
-        }
-
-        switch("1") {
-            "1" say "1"
-        }
-
-        switch("2") {
-            "2" say "2"
-        }
-
-        "3" say "3"
-    }.launch(GalContext(HashMap()))
-}
