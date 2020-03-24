@@ -1,8 +1,10 @@
 import org.hoshino9.engine.galtext.*
 
-object Section3 : GalSection {
-    override val name: String
-        get() = "忆梦·心缘"
+object Section2 : GalSection {
+    override val name: String = "忆梦·心缘"
+    override fun next(context: GalContext<Context>): GalSection? {
+        return null
+    }
 
     override val launcher: GalLauncher<Context>
         get() = gal {
@@ -177,5 +179,18 @@ object Section3 : GalSection {
             self say "嗯"
             tt say "谢谢姐姐！"
             self say "……不用谢了啦"
+
+            none say "第二天"
+            none say "灿烂的阳光洒满大地"
+            none say "一切都是那么美好，但对于某些人来说，今天，可能是一次惊心动魄的冒险"
+            none say "少女们站在校门前"
+            tt say "呜呜……"
+            ti say "唔……不用那么怕啦……我会在天忆身边的"
+            tt say "但……人好多……"
+            ti say "放心啦……"
+            none say "天怡摸了摸天忆的头"
+            self say "好啦，要进去了哦"
+            ti say "嗯"
+            none say "天怡紧握天忆的手，一同走进校门"
         }
 }

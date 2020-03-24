@@ -14,8 +14,11 @@ suspend fun main() {
     }
 
     val selected = readLine().orEmpty().toIntOrNull() ?: throw IllegalArgumentException("WDNMD")
+    var section: GalSection? = sections[selected]
+    val context = GalContext(HashMap<String, Boolean>())
 
-    (selected until sections.size).forEach {
-        sections.getOrNull(it)?.launcher?.launch(GalContext(hashMapOf("tenied_h" to true)))
+    while (section != null) {
+        section.launcher.launch(context)
+        section = section.next(context)
     }
 }

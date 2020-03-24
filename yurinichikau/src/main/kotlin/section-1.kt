@@ -2,6 +2,9 @@ import org.hoshino9.engine.galtext.*
 
 object Section1 : GalSection {
     override val name: String = "自然之美"
+    override fun next(context: GalContext<Context>): GalSection? {
+        return Section2
+    }
 
     override val launcher: GalLauncher<Context>
         get() = gal {

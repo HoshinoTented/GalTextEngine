@@ -1,4 +1,5 @@
 import org.hoshino9.engine.galtext.Context
+import org.hoshino9.engine.galtext.GalContext
 import org.hoshino9.engine.galtext.GalLauncher
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
@@ -30,6 +31,8 @@ val tented_h_no_lie by PropertyNameDelegate
 interface GalSection {
     val launcher: GalLauncher<Context>
     val name: String
+
+    fun next(context: GalContext<Context>): GalSection?
 }
 
-val sections = listOf(Opening, Section0)
+val sections = listOf(Opening, Section0, Section1, Section2)
